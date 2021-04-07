@@ -86,3 +86,28 @@ print(result)
 
 # 运行结果：7
 
+
+
+
+# 5.函数嵌套调用
+# 所谓函数嵌套调用指的是一个函数里面又调用了另外一个函数。
+
+def test2():
+    print('-----test2 start-----')
+    print('这里是test2执行的代码----')
+    print('-----test2 end-----')
+
+def test1():
+    print('-----test1 start-----')
+    test2()
+    print('-----test1 end-----')
+
+test1()
+
+# 运行结果：
+
+-----test1 start-----
+-----test2 start-----
+这里是test2执行的代码----
+-----test2 end-----
+-----test1 end-----
