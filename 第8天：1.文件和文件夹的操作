@@ -1,0 +1,130 @@
+# 1.常见函数
+
+# 在Python中文件和文件夹的操作要借助os模块里面的相关功能，具体步骤如下：
+# 1.导入os模块，输入 import os
+# 2.使用os的相关功能，常见的有 rename(),remove(),mkdir(),rmdir(),getcwd(),chdir(),listdir()
+
+# 例1：重命名文件和文件夹 rename()
+
+import os
+
+os.rename('test.txt','test1.txt')
+
+
+# 例2：删除文件 remove()
+
+import os
+
+os.remove('test[备份].txt')
+
+
+# 例3：创建文件夹 mkdir()
+
+import os
+
+os.mkdir('box')
+
+
+# 例4：删除文件夹 rmdir()
+
+import os
+
+os.rmdir('box')
+
+
+# 例5：返回当前文件所在目录路径 getcwd()
+
+import os
+
+print(os.getcwd())          # 注：用print()函数，对os.getcwd()返回的结果进行输出，我们才能看到运行结果
+
+
+# 例6：改变目录路径 chdir()
+# 要求：创建一个文件夹 box ，然后在文件夹 box 中在创建一个文件夹 btc
+
+import os
+
+os.mkdir('box')
+os.chdir('box')             # 注：通过chdir()改变当前的目录路径，进入到box文件夹中
+os.mkdir('btc')             # 注：此时再创建的文件夹就是在box中了
+
+
+# 例7：获取某个文件夹下所有文件，返回一个列表 listdir()
+
+import os
+
+print(os.listdir())         # 注：通过print()来查看listdir()返回的结果
+
+
+# 例8：综合实例
+# 需求：批量修改文件名，既可添加指定字符串，又能删除指定字符串
+
+# （1）功能1：批量添加指定字符串
+# （2）功能2：批量删除指定字符串
+
+# （1）功能1：批量添加指定字符串
+# 我们前面就练习过关于字符串的拼接案例，这里也是同样会用到一些同样的方法。
+# 比如我们要批量添加 Python_ 这个前缀，那么我们首先要定义一个变量接收所有的旧文件名。
+# 然后我们在定义另一个变量，通过 + 拼接，Python_ + 旧文件名，这样就生成了新的文件名。
+# 批量添加，我们想到运用for循环遍历
+
+# 首先，如何得到所有的旧文件名呢？我们想到刚刚学习的 listdir() ，它可以接收当前目录下的所有文件名，并返回一个列表
+# 那么我们就定义一个变量 file_list = os.listdir() 
+# 然后，设置一个变量去遍历 file_list 中所接收到的所有文件名， for i in file_list
+# 然后，形成新的文件名我们可以再定义一个变量，new_name = 'Python_' + i
+# 到这里，文件的新名称已经形成了，下面我们要做的就是把新名称修改到旧名称的位置去。可以用到我们刚刚学到的 rename()
+# os.rename(i,new_name)
+# 把这些代码整合到一起，功能1 就实现了。
+
+import os
+
+file_name = os.listdir()
+print(file_name)
+
+for i in file_name:
+    new_name = 'Python_' + i
+    print(new_name)
+
+    os.rename(i,new_name)
+
+
+# （2）功能2：批量删除指定字符串
+# 也就是说要删除Python_这个子串，我们考虑用字符串切片把它切出来，只取余下的部分，然后把余下的部分用rename()重命名就可以了
+# 还记得那个返回字符串长度的len()函数吗？
+# 我们可以这样，num = len(Python_)，这样得到的返回值是 7
+# 将7定义为切片的下标，我们可以这样，new_name = i[num:]
+# 这样就相当于得到了去除 Python_ 前缀的文件名了
+# 然后，我们把 new_name 通过 rename() 写入就可以了
+
+import os
+
+file_name = os.listdir()
+print(file_name)
+num = len('Python_')
+for i in file_name:
+
+    new_name = i[num:]
+    print(new_name)
+    os.rename(i,new_name)
+    
+# 特别注意：运行这个代码之后，有些人的pycharm会自动生成一个 .idea 的文件，这会导致代码报错，最直接的办法就是把 .idea 文件删除，然后再运行。
+
+# 到这里，我们把两个模块的功能都实现了，但是这是在两个代码的情况下实现的，我想要把这两个功能整合到一起，可不可以呢？
+# 想想Python的相关语法把，有循环遍历的while和for，还有条件判断的if，无外乎就这三种，while和for不能实现，但是if 好像可以
+# 我们可以设置一个值，当值为x的时候，执行功能1，当值为y的时候执行功能2
+
+import os
+
+file_name = os.listdir()
+
+flag = 1
+
+for i in file_name:
+    if flag == 1:
+        new_name = 'Python_' + i
+
+    elif flag == 2:
+        num = len('Python_')
+        new_name = i[num:]
+
+    os.rename(i,new_name)
