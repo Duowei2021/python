@@ -1,0 +1,218 @@
+# 今天，我们来到了一个新的章节，面向对象。
+# 面向对象，是一种抽象化的编程思想，不止是Python，面向对象在很多其他的编程语言中都存在。
+# 那么如何理解“面向对象”这样一个概念呢？举个例子来说，洗衣服，你是用哪种方法来洗的呢？我们可以手洗，也可以用洗衣机洗。
+# 如果是手洗，我们要全程参与其中，从加洗衣粉到刷洗衣服，从清洗肥皂泡到拧干脱水，都要我们亲力亲为。
+# 而如果是洗衣机洗，我们只需要将衣服和适量的洗衣粉放入洗衣机就行了，而其中经历的过程，不用我们去管。
+# 很明显，洗衣机洗更加的省时省力，能够帮我们提高效率。
+# 而面向对象的编程思想，就是将“编程”这件事当做是一台洗衣机，对外界来说，洗衣机是直接使用的，不用管它内部的情况。而“编程”就是设置洗衣机要做哪些事。
+
+# 1.类和对象
+# 要学习面向对象，就必须知道类和对象的概念，让我们继续用上面提到的洗衣机来打比方。
+
+# 类，就相当于制作洗衣机的图纸，根据这张图纸，我们可以制造出很多台洗衣机。
+# 对象，又被称为实例，就相当于制作出来的洗衣机
+
+# 类的语法如下：
+  class 类名():
+    代码
+    ......
+    
+# 对象的语法如下：
+  对象名 = 类名()
+  
+# 让我们创建一个类和对象快速体验一下吧。
+
+class washer():
+    def wash(self):   # 注：如果是用pycharm，输入到wash后面的括号时，会自动补全（self），self指的就是调用该函数的对象，我们可以看到运行结果处的对比
+        print('能洗衣服')
+        print(self)
+
+haier = washer()      # = 右边的washer()类中的所有属性，赋值到 = 左边，创建了一个haier对象
+
+print(haier)          # 直接打印haier这个对象
+haier.wash()          # 通过haier这个对象调用washer()类中的wash()方法
+
+# 运行结果：
+
+<__main__.washer object at 0x0000022D100440B8>      # 这里的运行结果对应 32 行的 print(haier)，输出的是haier对象的内存位置
+能洗衣服                                            # 这里的运行结果对应 27 行的 print('能洗衣服')
+<__main__.washer object at 0x0000022D100440B8>      # 这里的运行结果对应 28 行的 print(self)，输出的是self（也就是调用wash()函数的对象）的内存位置
+
+# 可以看到运行结果中，print(haier)和print(self)输出的内存地址是一样的，进一步证明了self就是调用该函数的对象
+
+
+
+
+# 2.一个类创建多个对象
+# 就像前面说到的洗衣机例子一样，我们当然可以通过 “类” 这个洗衣机的制作图，来制作多台 洗衣机 这样的 “对象”。
+# 直接看例子：
+
+class washer():
+    def wash(self):
+        print('能洗衣服')
+
+haier1 = washer()
+haier2 = washer()
+
+haier1.wash()
+print(haier1)
+
+haier2.wash()
+print(haier2)
+
+# 运行结果：
+
+能洗衣服
+<__main__.washer object at 0x000001C01CF4E208>
+能洗衣服
+<__main__.washer object at 0x000001C01CF4E2B0>
+
+# 可以看到通过创建对象，我们很轻松的又复制了一台洗衣机，这台洗衣机的功能也一应俱全。
+# 同时，我们可以看到，这两台洗衣机的内存地址是不同的，说明我们创建的不同对象，它所存储的内存地址是不同的。
+
+
+
+
+# 3.添加和获取对象的属性
+# 这里所谓的对象的属性，即是指对象的特征，比如：洗衣机的高度，宽度，重量......
+# 在一个类中，对象的属性既可以在类的外面添加和获取，也能够在类的里面添加和获取。
+
+# （1）在类的外面添加和获得对象属性
+# 语法：
+# 对象名.属性名 = 值         注：（添加对象属性）
+# 对象名.属性名             注：（获得对象属性）
+
+# 例：
+class washer():
+    def wash(self):
+        print('能洗衣服')
+
+haier = washer()
+
+haier.width = 100
+haier.height = 500
+
+print(f'haier洗衣机的宽度是{haier.width}')
+print(f'haier洗衣机的高度是{haier.height}')
+
+# 运行结果：
+haier洗衣机的宽度是100
+haier洗衣机的高度是500
+
+# （2）类的里面获取对象属性
+# 语法：
+# self.属性名
+
+# 例：
+
+class washer():
+
+    def wash(self):
+        print('能洗衣服')
+
+    def print_info(self):
+        print(f'haier洗衣机的宽度是{haier.width}')
+        print(f'haier洗衣机的高度是{haier.height}')
+
+haier = washer()
+
+haier.width = 100
+haier.height = 500
+
+haier.print_info()
+
+# 运行结果：
+
+haier洗衣机的宽度是100
+haier洗衣机的高度是500
+
+
+
+
+# 4.魔法方法
+# 什么是魔法方法？简而言之，只要你在Python中看到，“ __xx__() ”，这种样子的函数，它就叫做魔法方法，它们是一群具有特殊功能的函数。
+# Python中有很多魔法方法，这里介绍几种常用的魔法方法。
+
+# （1）__init__()
+# 还是用洗衣机举例，我们知道洗衣机宽度、高度都是与生俱来的属性，我们可以不可以在生产过程中就赋予这些属性呢？
+# 这时候，我们就可以用到我们的 __init()__ 方法了。
+# __init__()方法，用来初始化对象。
+# 我们直接看例子：
+
+class washer():
+
+    def __init__(self):
+        self.width = 100
+        self.height = 500
+
+    def print_info(self):
+        print(f'洗衣机的宽度是{self.width}')
+        print(f'洗衣机的高度是{self.height}')
+
+haier = washer()
+haier.print_info()
+
+# 运行结果：
+
+洗衣机的宽度是100
+洗衣机的高度是500
+
+# 可以看到，在对象haier中，我们并没有调用 __init__()方法，但是运行后同样能够将width和height的值作以输出。
+# 这里，正是__init()__方法，在设置对象的初始值的功能起了作用。
+
+# 更进一步，在__init__()方法中，还可以带参数，我们看例子：
+
+class washer():
+
+    def __init__(self,a,b):
+        self.width = a
+        self.height = b
+
+    def print_info(self):
+        print(f'洗衣机的宽度是{self.width}')
+        print(f'洗衣机的高度是{self.height}')
+
+haier = washer(30,50)
+haier.print_info()
+
+# 运行结果：
+
+洗衣机的宽度是30
+洗衣机的高度是50
+
+# 这里输出的宽度和高度，是我们在创建haier对象时输入的，是可以实时传入的。
+
+
+# （2）__str__()
+# 当我们使用print输出对象haier的时候，默认打印的是haier的内存地址。如果我们在类中定义了__str__()方法，那么就会打印存在这个方法中return的数据。
+# 例：
+
+class washer():
+    def __str__(self):
+        return '这是海尔洗衣机的说明书'
+
+haier = washer()
+print(haier)
+
+# 运行结果：
+
+这是海尔洗衣机的说明书
+
+
+# （3）__del__()
+# 当删除对象时，Python解释器也会默认调用__del__()方法。
+# 例：
+
+class washer():
+    def __del__(self):
+        print(f'{self}对象已经被删除')
+
+haier =washer()
+del haier
+
+# 运行结果：
+
+<__main__.washer object at 0x00000263E89D42E8>对象已经被删除
+
+
+
