@@ -32,9 +32,9 @@ class Home():
 
 jia = Home('张家界',200)
 
-bed = Furniture('双人床',6)
-jia.add_furniture(bed)
-print(jia)
+bed = Furniture('双人床',6)        # 注：我们可以看到当涉及到两个类时，是这样衔接的。
+jia.add_furniture(bed)            # 注：首先通过第一个类定义了一个对象
+print(jia)                        # 注：然后这个对象传入另一个类的对象中实现功能  
 
 table = Furniture('桌子',8)
 jia.add_furniture(table)
