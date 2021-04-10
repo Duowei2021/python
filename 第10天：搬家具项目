@@ -1,0 +1,52 @@
+# 完成第一个烤地瓜项目之后，是不是有点小小的成就感，让我们把难度加大一点点。
+# 让我们一起来看看，涉及到两个类的项目，要怎么去操作吧。
+# 需求：将小于房子剩余面积的家具摆放到房子中。
+
+# 完整代码：
+
+class Furniture():
+
+    def __init__(self,name,area):
+        self.name = name
+        self.area = area
+
+
+class Home():
+
+    def __init__(self,address,area):
+        self.address = address
+        self.area = area
+        self.free_area = area
+        self.furniture_list = []
+
+    def __str__(self):
+        return f'地理位置:{self.address}，房屋面积{self.area}，剩余面积{self.free_area}，家具列表{self.furniture_list}'
+
+    def add_furniture(self,item):
+        if self.free_area >= item.area:
+            self.furniture_list.append(item.name)
+            self.free_area -= item.area
+        else:
+            print(f'家具{item.name}的面积太大，不能放进房子里。')
+
+
+jia = Home('张家界',200)
+
+bed = Furniture('双人床',6)
+jia.add_furniture(bed)
+print(jia)
+
+table = Furniture('桌子',8)
+jia.add_furniture(table)
+print(jia)
+
+basketball_court = Furniture('篮球场',600)
+jia.add_furniture(basketball_court)
+print(jia)
+
+# 运行结果：
+
+地理位置:张家界，房屋面积200，剩余面积194，家具列表['双人床']
+地理位置:张家界，房屋面积200，剩余面积186，家具列表['双人床', '桌子']
+家具篮球场的面积太大，不能放进房子里。
+地理位置:张家界，房屋面积200，剩余面积186，家具列表['双人床', '桌子']
