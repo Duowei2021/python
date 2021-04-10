@@ -1,0 +1,74 @@
+# 看到跟想到、想到跟做到之间，都有一段距离。
+# 有时候我们听了课、看了书，以为理解了上面的知识点。
+# 可实际上，当我们动手去做的时候，却错误百出。
+# 以上的情况，用来形容学习编程的状况，更为贴切。
+# 当你看了书中的示例内容，以为会做了，可是自己做的时候就是会报错。
+# 这需要我们多动手，学习编程还是得多动手。
+
+# 例：面向对象基础编程——烤地瓜
+# 需求：
+"""
+1. 被烤的时间和对应的地瓜状态：
+   0-3分钟：生的
+   3-5分钟：半生不熟
+   5-8分钟：熟的
+   超过8分钟：烤糊了
+
+2. 添加的调料：
+   用户可以按自己的意愿添加调料
+"""
+
+# 完整代码：
+
+class Sweet_potato():
+
+    def __init__(self):
+        self.time = 0
+        self.state = '生的'
+        self.condiments = []
+
+    def __str__(self):
+        return f'地瓜烤了{self.time}分钟，添加了{self.condiments},目前的状态：{self.state}'
+
+    def cook_time(self,time):
+        self.time += time
+        if 0 <= self.time < 3:
+            self.state = '生的'
+        elif 3 <= self.time < 5:
+            self.state = '半生不熟'
+        elif 5 <= self.time < 8:
+            self.state = '熟的'
+        elif 8 <= self.time:
+            self.state = '烤糊了'
+
+    def potato_condiments(self,condiments):
+        self.condiments.append(condiments)
+
+
+digua = Sweet_potato()
+
+print(digua)
+
+digua.cook_time(2)
+print(digua)
+
+digua.cook_time(2)
+digua.potato_condiments('酱油')
+print(digua)
+
+digua.cook_time(2)
+digua.potato_condiments('辣椒粉')
+print(digua)
+
+digua.cook_time(2)
+digua.potato_condiments('香菜')
+print(digua)
+
+
+# 运行结果：
+
+地瓜烤了0分钟，添加了[],目前的状态：生的
+地瓜烤了2分钟，添加了[],目前的状态：生的
+地瓜烤了4分钟，添加了['酱油'],目前的状态：半生不熟
+地瓜烤了6分钟，添加了['酱油', '辣椒粉'],目前的状态：熟的
+地瓜烤了8分钟，添加了['酱油', '辣椒粉', '香菜'],目前的状态：烤糊了
