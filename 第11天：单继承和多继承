@@ -1,0 +1,239 @@
+# 生活中的继承，一般指的是子女继承父辈的财产。
+# Python面向对象的继承指的是多个类之间的所属关系，即子类默认继承父类的所有属性和方法。
+# 我们看一个例子。
+
+class A():
+    def __init__(self):
+        self.num = 1
+
+    def info_print(self):
+        print(self.num)
+
+
+class B(A):     # 注：在B类中并没有输入任何方法，只是继承了A
+    pass        # 注：在运行结果可以看到，实现的就是A类中的方法
+
+
+result = B()
+result.info_print()
+
+# 运行结果：
+
+1
+
+# 让我们通过一个故事，来把单继承和多继承系统的学习一下。
+# 故事主线：一位煎饼果子老师傅，在煎饼果子界摸爬滚打多年，研发了一套精湛的摊煎饼果子的技术。
+# 师父要把这套技术传授给他的唯一的最得意的徒弟。
+
+
+（1）单继承
+# 这位得意弟子继承了师父的所有技能，这就好像python中的单继承一样。
+# 我们看一个例子：
+
+class Master():
+    def __init__(self):
+        self.kongfu = '[古法制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+class Prentice(Master):
+    pass
+
+duowei = Prentice()     # 创建对象duowei
+print(duowei.kongfu)    # 打印duowei继承到的师父类的方法
+duowei.make_cake()      # duowei继承了师父类的方法
+
+# 运行结果：
+
+[古法制作煎饼果子]
+运用[古法制作煎饼果子]制作煎饼果子
+
+
+（2）多继承
+# 徒弟类继承了师傅类的所有方法。这就是典型的单继承。
+# 我们随着故事继续推进。
+# duowei是个爱学习的好孩子，想学习更多的煎饼果子技术。
+# 于是报了培训班，系统的学习煎饼果子技术。
+# 这时候，duowei既继承了师父类的方法，又继承了学校类的方法，这就是多继承。
+
+class Master():
+    def __init__(self):
+        self.kongfu = '[古法制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+class School():
+    def __init__(self):
+        self.kongfu = '[学院风格制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+
+class Prentice(School,Master):
+    pass
+duowei = Prentice()
+print(duowei.kongfu)
+duowei.make_cake()
+
+# 运行结果：
+
+[学院风格制作煎饼果子]
+运用[学院风格制作煎饼果子]制作煎饼果子
+
+# 我们可以看到，虽然徒弟类继承了两个父类，但是运行结果却只是执行学校类的方法。
+# 这是为什么呢？
+# 原来，当一个类有多个父类的时候，默认使用第一个父类的同名属性和方法。
+
+
+
+（3）子类重写父类同名方法和属性
+# 我们继续刚才的故事，duowei在学习了师父和学校的方法后。
+# 自己又苦心钻研，最终创出了属于自己的一套方法。
+
+class Master():
+    def __init__(self):
+        self.kongfu = '[古法制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+class School():
+    def __init__(self):
+        self.kongfu = '[学院风格制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+
+class Prentice(School,Master):
+    def __init__(self):
+        self.kongfu = '[独创方法制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+duowei = Prentice()
+print(duowei.kongfu)
+duowei.make_cake()
+
+# 运行结果：
+
+[独创方法制作煎饼果子]
+运用[独创方法制作煎饼果子]制作煎饼果子
+
+# 结论：子类和父类具有同名属性和方法，默认使用子类的同名属性和方法。
+
+
+（4）子类调用父类的同名方法和属性
+# 故事：很多顾客都希望也能吃到古法和学院风格制作的煎饼果子。
+
+class Master():
+    def __init__(self):
+        self.kongfu = '[古法制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+class School():
+    def __init__(self):
+        self.kongfu = '[学院风格制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+
+class Prentice(School,Master):
+    def __init__(self):
+        self.kongfu = '[独创方法制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+    def make_Master_cake(self):
+        Master.__init__(self)
+        Master.make_cake(self)
+
+    def make_School_cake(self):
+        School.__init__(self)
+        School.make_cake(self)
+
+duowei = Prentice()
+print(duowei.kongfu)
+duowei.make_cake()
+duowei.make_Master_cake()
+duowei.make_School_cake()
+
+# 运行结果：
+
+[独创方法制作煎饼果子]
+运用[独创方法制作煎饼果子]制作煎饼果子
+运用[古法制作煎饼果子]制作煎饼果子
+运用[学院风格制作煎饼果子]制作煎饼果子
+
+
+（5）__mro__()方法
+# 故事到这里就结束了。
+# 当以后继承关系复杂的时候，我们还可以用到__mro__方法，用以查看继承关系
+# 我们在刚才的代码最后一行加入这句代码就行了，print(Prentice.__mro__)
+
+class Master():
+    def __init__(self):
+        self.kongfu = '[古法制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+class School():
+    def __init__(self):
+        self.kongfu = '[学院风格制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+
+class Prentice(School,Master):
+    def __init__(self):
+        self.kongfu = '[独创方法制作煎饼果子]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+    def make_Master_cake(self):
+        Master.__init__(self)
+        Master.make_cake(self)
+
+    def make_School_cake(self):
+        School.__init__(self)
+        School.make_cake(self)
+
+duowei = Prentice()
+print(duowei.kongfu)
+duowei.make_cake()
+duowei.make_Master_cake()
+duowei.make_School_cake()
+
+print(Prentice.mro())
+
+# 运行结果：
+
+[独创方法制作煎饼果子]
+运用[独创方法制作煎饼果子]制作煎饼果子
+运用[古法制作煎饼果子]制作煎饼果子
+运用[学院风格制作煎饼果子]制作煎饼果子
+[<class '__main__.Prentice'>, <class '__main__.School'>, <class '__main__.Master'>, <class 'object'>]
+
+# 可以看到继承的顺讯是从左至右开始的。
+# 首先是继承自己，然后是School类，再就是Master类，最后是默认的object类，也称顶层类或者基类。
