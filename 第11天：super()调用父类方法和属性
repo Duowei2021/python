@@ -1,0 +1,66 @@
+# 运用super()可以一次性调用父类的方法和属性
+
+class Master():
+    def __init__(self):
+        self.kongfu = '[古法制作煎饼果子配方]'
+
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+
+class School(Master):
+    def __init__(self):
+        self.kongfu = '[学院风格制作煎饼果子配方]'
+    def make_cake(self):
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+    # 方法一：
+        # super(School,self).__init__()
+        # super(School, self).make_cake()
+
+    # 方法二：
+        super().__init__()
+        super().make_cake()
+
+
+class Prentice(School):
+
+    def __init__(self):
+        self.kongfu = '[独创制作煎饼果子配方]'
+
+    def make_cake(self):
+        self.__init__()
+        print(f'运用{self.kongfu}制作煎饼果子')
+
+    def make_Master_cake(self):
+        Master.__init__(self)
+        Master.make_cake(self)
+
+    def make_School_cake(self):
+        School.__init__(self)
+        School.make_cake(self)
+
+    # 一次性调用父类的同名属性和方法
+    def make_old_cake(self):
+        # 方法一：代码冗余；父类类名如果变化，这里代码需要频繁修改
+        # Master.__init__(self)
+        # Master.make_cake(self)
+        # School.__init__(self)
+        # School.make_cake(self)
+
+        # 方法二:super()
+        # super(Prentice,self).__init__()
+        # super(Prentice,self).make_cake()
+
+        # 方法三：super()
+        super().__init__()
+        super().make_cake()
+
+xiaowei = Prentice()
+xiaowei.make_old_cake()
+
+# 运行结果：
+
+运用[学院风格制作煎饼果子配方]制作煎饼果子
+运用[古法制作煎饼果子配方]制作煎饼果子
+
