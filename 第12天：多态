@@ -1,0 +1,39 @@
+# 面向对象有三大特征，封装、继承和多态。
+# 今天我们就来学习一下多态。
+# 什么是多态？
+# 多态是一种使用对象的方式，子类重写父类方法，调用不同子类对象的相同父类方法，可以产生不同的执行结果。
+# 实现步骤：
+"""
+  定义父类，并提供公共方法。
+  定义子类，并重写父类方法。
+  传递子类对象给调用者，可以看到不同子类执行效果不同。
+"""
+
+# 示例：
+
+class Dog():
+    def work(self):
+        print('指哪儿打哪儿')
+
+
+class ArmyDog(Dog):
+    def work(self):
+        print('冲击敌人')     # 重写了父类Dog的work方法
+
+
+class DrugDog(Dog):
+    def work(self):
+        print('搜查毒品')     # 重写了父类Dog的work方法
+
+
+class Person():
+    def work_with_dog(self,dog):    
+        dog.work()
+
+
+ad = ArmyDog()
+dd = DrugDog()
+
+duowei = Person()
+duowei.work_with_dog(ad)    # 传递子类给对象调用者，可以看到不同子类执行的效果
+duowei.work_with_dog(dd)     # 传递子类给对象调用者，可以看到不同子类执行的效果
