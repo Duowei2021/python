@@ -1,0 +1,28 @@
+# 类属性只能通过类对象修改，不能通过实例对象修改。
+# 如果通过实例对象修改类属性，表示的是创建了一个实例属性。
+# 示例：
+
+class Dog():
+    tooth = 10
+
+ad = Dog()
+dd = Dog()
+
+Dog.tooth = 12
+print(Dog.tooth)
+print(ad.tooth)
+print(dd.tooth)
+
+ad.tooth = 20
+print(Dog.tooth)
+print(ad.tooth)
+print(dd.tooth)
+
+# 运行结果：
+
+12
+12
+12
+12
+20
+12
