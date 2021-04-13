@@ -1,0 +1,133 @@
+# 1.了解异常
+# 当检测到一个错误时，解释器就无法继续执行了。
+# 反而出现一些错误的提示，这就是所谓的“异常”。
+
+
+
+
+# 2.异常的写法
+# 语法：
+"""
+try:
+  可能发生的错误代码
+except:
+  如果出现异常执行的代码
+"""
+# 例1：
+
+try:
+    f = open('test.txt','r')
+except:
+    f = open('test.txt','w')
+    
+# 可以看到虽然我们的目录下没有test.txt这个文件
+# 但是代码执行之后创建出来了这个文件
+
+
+
+
+# 3.捕获指定异常
+# 语法：
+"""
+try:
+  可能发生错误的代码
+except 异常类型:
+  如果捕获到该异常类型执行的代码
+"""
+
+
+# 例2：
+
+try:
+    print(num)
+except NameError:
+    print('有错误')
+    
+# 运行结果：
+有错误
+
+# 可以看到try后面接着的语句是不能执行的，因为并不存在num这个变量
+# 这时候对应的错误是NameError
+# 而这与except语句后面接着的 NameError 错误类型一样
+# 所以就会执行print（'有错误'）这条语句
+
+
+# 例3：（同理，捕获多个指定异常只需要在except后面写入多个指定的错误类型即可）
+
+try:
+    print(1/0)
+except (ZeroDivisionError,NameError):
+    print('有错误')
+    
+# 运行结果：
+有错误
+
+
+
+
+# 4.捕获异常描述信息
+# 例4
+
+try:
+    print(1/0)
+except (ZeroDivisionError,NameError) as result:
+    print(result)
+    
+# 运行结果：
+division by zero
+
+# as 是这里的专属用词
+# result在这里只是一个用来接收的变量，并不是固定搭配
+
+
+
+
+# 5.捕获所有异常
+# 例5
+
+try:
+    print(num)
+except Exception as result:     # Exception 是所有程序异常的父类
+    print(result)
+    
+# 运行结果：
+
+name 'num' is not defined
+
+
+
+
+# 6.异常的else
+# 例6
+
+try:
+    print(1)
+except Exception as result:
+    print(result)
+else:
+    print('我是else，是没有异常的时候执行的代码')
+    
+# 运行结果：
+
+1
+我是else，是没有异常的时候执行的代码
+
+
+
+
+
+# 7.异常的finally
+# 例7
+
+try:
+    f = open('test.txt','r')
+except:
+    f = open('test.txt','w')
+else:
+    print('没有异常，真开心')
+finally:      # finally表示的是无论是否异常都要执行的代码，例如关闭文件。
+    f.close()
+    
+# 运行结果：
+
+没有异常，真开心
