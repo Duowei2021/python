@@ -1,0 +1,32 @@
+# Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。
+# 模块能定义函数，类和变量，模块里也能包含可执行的代码。
+
+# 1.导入模块的方式
+"""
+- import 模块名
+- from 模块名 import 功能名
+- from 模块名 import *
+- import 模块名 as 别名
+- from 模块名 import 功能名 as 别名
+"""
+
+# 2.导入模块实例
+# 我们可以依次带入pycharm中实现一下。
+
+import math
+print(math.sqrt(9))   # 3.0
+
+from math import sqrt
+print(sqrt(9))    # 3.0
+
+from math import *
+print(sqrt(9))    # 3.0
+
+import time as tt
+tt.sleep(2)
+print('hello')    # hello
+
+from time import sleep as s1
+s1(2)
+print('hello')    # hello
+
