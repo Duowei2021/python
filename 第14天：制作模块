@@ -1,0 +1,15 @@
+# 在Python中，每个Python文件都可以作为一个模块，模块的名字就是文件的名字。
+# 也就是说自定义模块名必须要符合标识符命名规则。
+# 1.定义模块
+# 新建一个Python文件，命名为my_module1.py，并定义testA函数。
+
+def testA(a,b):
+    print(a + b)
+
+if __name__ == '__main__':    # 只在当前文件中调用该函数，其他导入的文件内不符合该条件，则不执行testA函数调用
+    testA(1,1)
+    
+# 2.调用模块
+
+import my_module1
+my_module1.testA(2,2)
