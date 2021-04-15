@@ -1,0 +1,29 @@
+# 如果一个模块文件中有__all__变量，当使用from xxx import *导入时，只能导入这个列表中的元素。
+
+# my_module 模块代码
+
+__all__ = ['testA']
+
+
+def testA():
+    print('testA')
+
+
+def testB():
+    print('testB')
+    
+# 导入模块的文件代码
+
+from my_module1 import *
+testA()
+testB()
+
+# 运行结果
+
+testA
+Traceback (most recent call last):
+  File "C:/Users/duowei/python_learn/15th days：__all__变量.py", line 3, in <module>
+    testB()
+NameError: name 'testB' is not defined
+
+Process finished with exit code 1
